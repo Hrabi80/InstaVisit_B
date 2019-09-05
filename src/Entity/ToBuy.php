@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ToBuyRepository")
@@ -35,6 +37,19 @@ class ToBuy implements \JsonSerializable
      * @ORM\Column(type="text")
      */
     private $description;
+
+
+
+    /**
+     * @Assert\File(
+     *     maxSize = "6000000000000",
+     *     mimeTypes = {"application/jpg", "application/x-pdf"},
+     *     mimeTypesMessage = "Please upload a valid PDF"
+     * )
+     * @ORM\column(name="mainIMG",type="string", length=255, nullable=true)
+     */
+
+    protected $mainIMG;
 
     /**
      * @ORM\Column(type="float")
@@ -122,7 +137,30 @@ class ToBuy implements \JsonSerializable
 
         return $this;
     }
-    
+    /*
+    * Sets file.
+    *
+    * @param UploadedFile $mainIMG
+    */
+      public function setMainIMG(/*UploadedFile */$mainIMG/*= null*/)
+    {
+
+        $this->mainIMG = $mainIMG;
+        return $this;
+    }
+
+     /**
+     * Get mainIMG
+     *
+     * @return string
+     */
+
+     public function getMainIMG()
+    {
+        return $this->mainIMG;
+    }
+
+
     public function jsonSerialize() {
 
         return  get_object_vars($this);
