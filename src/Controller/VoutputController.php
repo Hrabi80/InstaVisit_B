@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\ToBuy;
+
 
    /**
    * @Route("/api/output")
@@ -55,5 +57,52 @@ class VoutputController extends AbstractController
         }
          return new JsonResponse($arrayCollection);
       //  return $this->json($arrayCollection);
+    }
+    
+    /**
+     * @Route("/getDetail/{id}" , name="getDetails")
+     */
+    public function getDetails($id){
+        $em = $this->getDoctrine()->getManager();
+        $info = $em->getRepository('App:ToBuy')->find($id);
+         return new JsonResponse($info);
+    }
+     /**
+     * @Route("/getcar/{id}" , name="getcaracteristics")
+     */
+    public function getCarct($id){
+        $em = $this->getDoctrine()->getManager();
+        $parking = $em->getRepository('App:Vcar')->findCave($id);
+        $arrayCollection = array();
+        foreach($parking as $item) {
+        $arrayCollection[] = array(
+            
+       //  'id' => $item->getId(),
+         'parking' => $item->getParking(),
+         'garage'=> $item->getGarage(),
+         'cave'=> $item->getCave(),
+         'elevator'=> $item->getAscenceur(),
+         'etage'=> $item->getEtage(),
+         'garden'=> $item->getGardienne(),
+         );
+        }
+         return new JsonResponse($arrayCollection);
+    }
+    /**
+     * @Route("/getStation/{id}" , name="getStation")
+     */
+    public function getStation($id){
+        $em = $this->getDoctrine()->getManager();
+        $bus = $em->getRepository('App:Transport')->findTaxi($id);
+         return new JsonResponse($bus);
+    }
+    /**
+     * @Route("/getMap/{id}" , name="getMap")
+     */
+    public function getMap($id){
+        $em = $this->getDoctrine()->getManager();
+        $map = $em->getRepository('App:Map')->findMap($id);
+         return new JsonResponse($map);
+    }
 }
-}
+

@@ -5,9 +5,8 @@
         <group>
             <file>file:/home/hrabi/Desktop/Workspace/InstaVisitV2/Back-end/src/Controller/ToBuyController.php</file>
             <file>file:/home/hrabi/Desktop/Workspace/InstaVisitV2/Back-end/src/Controller/LocalisationController.php</file>
-            <file>file:/home/hrabi/Desktop/Workspace/InstaVisitV2/Back-end/src/Entity/User.php</file>
             <file>file:/home/hrabi/Desktop/Workspace/InstaVisitV2/Back-end/src/Controller/VoutputController.php</file>
-            <file>file:/home/hrabi/Desktop/Workspace/InstaVisitV2/Back-end/src/Entity/ToBuy.php</file>
+            <file>file:/home/hrabi/Desktop/Workspace/InstaVisitV2/Back-end/src/Controller/FrontController.php</file>
         </group>
     </open-files>
 </project-private>

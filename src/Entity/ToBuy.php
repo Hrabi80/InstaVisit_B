@@ -50,6 +50,16 @@ class ToBuy implements \JsonSerializable
      */
 
     protected $mainIMG;
+    /**
+     * @Assert\File(
+     *     maxSize = "110000000000",
+     *     mimeTypes = {"application/jpg", "application/x-pdf"},
+     *     
+     * )
+     * @ORM\column(name="cover",type="string", length=255, nullable=true)
+     */
+
+    protected $cover;
 
     /**
      * @ORM\Column(type="float")
@@ -60,6 +70,26 @@ class ToBuy implements \JsonSerializable
      * @ORM\Column(type="integer")
      */
     private $RoomNB;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vcar", mappedBy="ID_house", cascade={"persist", "remove"})
+     */
+    private $Vcaract;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Gallery", mappedBy="ID_House", cascade={"persist", "remove"})
+     */
+    private $gallery;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="house_id", cascade={"persist", "remove"})
+     */
+    private $transport;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="house_id", cascade={"persist", "remove"})
+     */
+    private $map;
 
     public function getId(): ?int
     {
@@ -159,10 +189,102 @@ class ToBuy implements \JsonSerializable
     {
         return $this->mainIMG;
     }
+    
+    /*
+    * Sets file.
+    *
+    * @param UploadedFile $cover
+    */
+      public function setCover(/*UploadedFile */$cover/*= null*/)
+    {
+
+        $this->cover = $cover;
+        return $this;
+    }
+
+     /**
+     * Get cover
+     *
+     * @return string
+     */
+
+     public function getCover()
+    {
+        return $this->cover;
+    }
 
 
     public function jsonSerialize() {
 
         return  get_object_vars($this);
+    }
+
+    public function getVcaract(): ?Vcar
+    {
+        return $this->Vcaract;
+    }
+
+    public function setVcaract(Vcar $Vcaract): self
+    {
+        $this->Vcaract = $Vcaract;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $Vcaract->getIDHouse()) {
+            $Vcaract->setIDHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function getGallery(): ?Gallery
+    {
+        return $this->gallery;
+    }
+
+    public function setGallery(Gallery $gallery): self
+    {
+        $this->gallery = $gallery;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $gallery->getIDHouse()) {
+            $gallery->setIDHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function getTransport(): ?Transport
+    {
+        return $this->transport;
+    }
+
+    public function setTransport(Transport $transport): self
+    {
+        $this->transport = $transport;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $transport->getHouseId()) {
+            $transport->setHouseId($this);
+        }
+
+        return $this;
+    }
+
+    public function getMap(): ?Map
+    {
+        return $this->map;
+    }
+
+    public function setMap(?Map $map): self
+    {
+        $this->map = $map;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newHouse_id = $map === null ? null : $this;
+        if ($newHouse_id !== $map->getHouseId()) {
+            $map->setHouseId($newHouse_id);
+        }
+
+        return $this;
     }
 }
