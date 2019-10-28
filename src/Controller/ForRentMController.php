@@ -11,14 +11,14 @@ use App\Entity\ForRentM;
 
 
    /**
-   * @Route("/api/ForRent")
+   * @Route("/api/ForRentM")
    */
 class ForRentMController extends AbstractController
 {
 
 
      /**
-     * @Route("/AddHouse", name="add_newHoueL")
+     * @Route("/AddHLM", name="add_newHoueL")
      */
     public function AddNewHouse(Request $request)
     {
@@ -39,7 +39,7 @@ class ForRentMController extends AbstractController
         $nvH->setMainIMG($imageName);
         $nvH->setCover($imagename2);
         $add=$request->get('adress');
-        $nvH->setCity($request->get('city'));
+        $nvH->setCiy($request->get('city'));
         $nvH->setAdress($add);
         $nvH->setDescription($request->get('description'));
         $nvH->setDescription2($request->get('description2'));
@@ -67,6 +67,56 @@ class ForRentMController extends AbstractController
         $loc = $em->getRepository('App:ToBuy')->findAll();
 
          return new JsonResponse($loc);
+    }
+    
+    /**
+     * @Route("/allData", name="alldataLL")
+     */
+
+    public function getRENTm(){
+
+        $em = $this->getDoctrine()->getManager();
+        $loc = $em->getRepository('App:ForRentM')->findAll();
+
+         return new JsonResponse($loc);
+    }
+    
+    /**
+     * @Route("/AddInfo/{id}", name="add_info")
+     */
+    public function addInfo(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $data = json_decode($request->getContent(), true);
+        $info = new Vcar();
+        $toBuy = $em->getRepository('App:ToBuy')->find($id);
+        $info->setAscenceur($data['elevator']);
+        $info->setCave($data['cave']);
+        $info->setEtage($data['etage']);
+        $info->setGarage($data['garage']);
+        $info->setGardienne($data['garden']);
+        $info->setParking($data['parking']);
+        $info->setIDHouse($toBuy);
+        $em->persist($info);
+        $em->flush();
+        
+        return new JsonResponse(array('success' => true));
+    }
+    
+     /**
+     * @Route("/AddMap/{id}", name="add_info")
+     */
+    public function addMap(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $data = json_decode($request->getContent(), true);
+        $map = new Map();
+        $toBuy = $em->getRepository('App:ToBuy')->find($id);
+        $map->setMap($data['map']);
+        $map->setVirtualTour($data['virtual']);
+        $map->setHouseId($toBuy);
+        $em->persist($map);
+        $em->flush();
+        
+        return new JsonResponse(array('success' => true));
     }
     
    

@@ -18,7 +18,7 @@ class ForRentController extends AbstractController
 
 
      /**
-     * @Route("/AddHouse", name="add_newHoueL")
+     * @Route("/AddHL", name="add_newHoueLNNN")
      */
     public function AddNewHouse(Request $request)
     {
@@ -61,13 +61,15 @@ class ForRentController extends AbstractController
      * @Route("/allData", name="alldataLL")
      */
 
-    public function getLocations(){
+    public function getRENT(){
 
         $em = $this->getDoctrine()->getManager();
-        $loc = $em->getRepository('App:ToBuy')->findAll();
+        $loc = $em->getRepository('App:ForRent')->findAll();
 
          return new JsonResponse($loc);
     }
+    
+    
     
    
 }
