@@ -48,9 +48,14 @@ class Vcar
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ToBuy", inversedBy="Vcaract", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $ID_house;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ForRentM", inversedBy="vcar", cascade={"persist", "remove"})
+     */
+    private $houseLM_id;
 
     public function getId(): ?int
     {
@@ -137,6 +142,18 @@ class Vcar
     public function setIDHouse(ToBuy $ID_house): self
     {
         $this->ID_house = $ID_house;
+
+        return $this;
+    }
+
+    public function getHouseLMId(): ?ForRentM
+    {
+        return $this->houseLM_id;
+    }
+
+    public function setHouseLMId(?ForRentM $houseLM_id): self
+    {
+        $this->houseLM_id = $houseLM_id;
 
         return $this;
     }

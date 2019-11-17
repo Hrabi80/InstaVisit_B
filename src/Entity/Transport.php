@@ -43,7 +43,7 @@ class Transport
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ToBuy", inversedBy="transport", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $house_id;
 
@@ -71,6 +71,11 @@ class Transport
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $taxiST;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ForRentM", inversedBy="transport", cascade={"persist", "remove"})
+     */
+    private $houseLM_id;
 
     public function getId(): ?int
     {
@@ -205,6 +210,18 @@ class Transport
     public function setTaxiST(?string $taxiST): self
     {
         $this->taxiST = $taxiST;
+
+        return $this;
+    }
+
+    public function getHouseLMId(): ?ForRentM
+    {
+        return $this->houseLM_id;
+    }
+
+    public function setHouseLMId(?ForRentM $houseLM_id): self
+    {
+        $this->houseLM_id = $houseLM_id;
 
         return $this;
     }

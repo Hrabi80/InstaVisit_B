@@ -28,8 +28,14 @@ class Map
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ToBuy", inversedBy="map", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $house_id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ForRentM", inversedBy="map", cascade={"persist", "remove"})
+     */
+    private $houseLM_id;
 
     public function getId(): ?int
     {
@@ -68,6 +74,18 @@ class Map
     public function setHouseId(?ToBuy $house_id): self
     {
         $this->house_id = $house_id;
+
+        return $this;
+    }
+
+    public function getHouseLMId(): ?ForRentM
+    {
+        return $this->houseLM_id;
+    }
+
+    public function setHouseLMId(?ForRentM $houseLM_id): self
+    {
+        $this->houseLM_id = $houseLM_id;
 
         return $this;
     }

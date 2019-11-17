@@ -33,7 +33,23 @@ class VcarRepository extends ServiceEntityRepository
                
          return $qb->getQuery()->execute();
       // return $qb->getQuery()->getArrayResult();
-    }    
+    } 
+    
+     /**
+     * @return Vcar[] Returns an array of Vcar objects
+    */
+      public function findCaveLM($id)
+    {
+      $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.houseLM_id','p')
+            ->where('Qr.houseLM_id ='.$id);
+               
+         return $qb->getQuery()->execute();
+      // return $qb->getQuery()->getArrayResult();
+    } 
     /*
     public function findByExampleField($value)
     {

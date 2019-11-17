@@ -34,6 +34,21 @@ class TransportRepository extends ServiceEntityRepository
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
+    /**
+      * @return Transport[] 
+      */
+    
+    public function findTaxiLM($id){
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.houseLM_id','p')
+            ->where('Qr.houseLM_id ='.$id);
+               
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
     /*
     public function findByExampleField($value)
     {
