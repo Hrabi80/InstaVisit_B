@@ -62,8 +62,8 @@ class ForRentMController extends AbstractController
         return new JsonResponse(array('success' => true));
     }
 
-  
-    
+
+
      /**
      * @Route("/allData", name="alldataLL")
      */
@@ -75,7 +75,7 @@ class ForRentMController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
+
     /**
      * @Route("/allData", name="alldataLL")
      */
@@ -87,7 +87,20 @@ class ForRentMController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
+    /**
+     * @Route("/delete/{id}")
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $forRentM = $em->getRepository('App:ForRentM')->find($id);
+       // $project.remove
+        $em->remove($forRentM);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
+    }
+
     /**
      * @Route("/AddInfo/{id}", name="add_infoLM")
      */
@@ -105,10 +118,10 @@ class ForRentMController extends AbstractController
         $info->setHouseLMId($ForRentM);
         $em->persist($info);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
-    
+
      /**
      * @Route("/AddMap/{id}", name="add_infoM")
      */
@@ -122,10 +135,10 @@ class ForRentMController extends AbstractController
         $map->setHouseLMId($toBuy);
         $em->persist($map);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
-    
+
     /**
      * @Route("/AddTransport/{id}", name="add_transpM")
      */
@@ -145,15 +158,15 @@ class ForRentMController extends AbstractController
         $station->setMetroST($data['metroST']);
         $station->setTrain($data['train']);
         $station->setTrainST($data['trainST']);
-        
-        
+
+
         $em->persist($station);
         $em->flush();
 
         return new JsonResponse(array('success' => true));
-        
+
     }
-    
+
     /**
      * @Route("/AddEquip/{id}", name="add_eqLM")
      */
@@ -171,7 +184,7 @@ class ForRentMController extends AbstractController
         $info->setHouseId($ForRentM);
         $em->persist($info);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
     /**
@@ -191,10 +204,10 @@ class ForRentMController extends AbstractController
         $info->setHouseId($ForRentM);
         $em->persist($info);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
-    
+
     /**
      * @Route("/AddAmeub/{id}", name="add_ammeM")
      */
@@ -212,10 +225,10 @@ class ForRentMController extends AbstractController
         $info->setHouseId($ForRentM);
         $em->persist($info);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
-    
+
     /**
      * @Route("/AddCouchage/{id}", name="add_couchage")
      */
@@ -230,14 +243,12 @@ class ForRentMController extends AbstractController
         $info->setHouseId($ForRentM);
         $em->persist($info);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
-    
-    
-    
-    
-   
-}
 
-  
+
+
+
+
+}

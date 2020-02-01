@@ -37,6 +37,14 @@ class ToBuy implements \JsonSerializable
      * @ORM\Column(type="text")
      */
     private $description;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description2;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description3;
 
 
 
@@ -54,7 +62,7 @@ class ToBuy implements \JsonSerializable
      * @Assert\File(
      *     maxSize = "110000000000",
      *     mimeTypes = {"application/jpg", "application/x-pdf"},
-     *     
+     *
      * )
      * @ORM\column(name="cover",type="string", length=255, nullable=true)
      */
@@ -82,12 +90,12 @@ class ToBuy implements \JsonSerializable
     private $gallery;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="house_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="house_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $transport;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="house_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="house_id", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $map;
 
@@ -131,6 +139,14 @@ class ToBuy implements \JsonSerializable
 
         return $this;
     }
+    public function getDescription2(): ?string
+    {
+        return $this->description2;
+    }
+    public function getDescription3(): ?string
+    {
+        return $this->description3;
+    }
 
     public function getDescription(): ?string
     {
@@ -140,6 +156,18 @@ class ToBuy implements \JsonSerializable
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+    public function setDescription2(string $description2): self
+    {
+        $this->description2 = $description2;
+
+        return $this;
+    }
+    public function setDescription3(string $description3): self
+    {
+        $this->description3 = $description3;
 
         return $this;
     }
@@ -189,7 +217,7 @@ class ToBuy implements \JsonSerializable
     {
         return $this->mainIMG;
     }
-    
+
     /*
     * Sets file.
     *

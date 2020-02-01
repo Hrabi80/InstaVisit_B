@@ -44,6 +44,8 @@ class ToBuyController extends AbstractController
         $nvH->setCity($request->get('city'));
         $nvH->setAdress($add);
         $nvH->setDescription($request->get('description'));
+        $nvH->setDescription2($request->get('description2'));
+        $nvH->setDescription3($request->get('description3'));
         $nvH->setPrice($request->get('price'));
         $nvH->setRoomNB($request->get('Tx'));
         $nvH->setSurface($request->get('surface'));
@@ -78,7 +80,7 @@ class ToBuyController extends AbstractController
         // return new JsonResponse($arrayCollection);
         return $this->json($arrayCollection);
     }
-    
+
      /**
      * @Route("/allData", name="alldata")
      */
@@ -90,7 +92,21 @@ class ToBuyController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
+
+    /**
+     * @Route("/delete/{id}")
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $forRentM = $em->getRepository('App:ToBuy')->find($id);
+       // $project.remove
+        $em->remove($forRentM);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
+    }
+
     /**
      * @Route("/AddTransport/{id}", name="add_transp")
      */
@@ -110,16 +126,16 @@ class ToBuyController extends AbstractController
         $station->setMetroST($data['metroST']);
         $station->setTrain($data['train']);
         $station->setTrainST($data['trainST']);
-        
-        
+
+
         $em->persist($station);
         $em->flush();
 
         return new JsonResponse(array('success' => true));
-        
+
     }
     /**
-     * @Route("/AddInfo/{id}", name="add_info")
+     * @Route("/AddInfo/{id}", name="add_Myinfo")
      */
     public function addInfo(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
@@ -135,10 +151,10 @@ class ToBuyController extends AbstractController
         $info->setIDHouse($toBuy);
         $em->persist($info);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
-    
+
      /**
      * @Route("/AddMap/{id}", name="add_info")
      */
@@ -152,9 +168,7 @@ class ToBuyController extends AbstractController
         $map->setHouseId($toBuy);
         $em->persist($map);
         $em->flush();
-        
+
         return new JsonResponse(array('success' => true));
     }
 }
-
-  

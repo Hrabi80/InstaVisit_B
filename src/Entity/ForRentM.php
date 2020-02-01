@@ -73,37 +73,37 @@ class ForRentM implements \JsonSerializable
     private $cover;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="houseLM_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="houseLM_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $transport;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vcar", mappedBy="houseLM_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Vcar", mappedBy="houseLM_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $vcar;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="houseLM_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="houseLM_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $map;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Equipement", mappedBy="house_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Equipement", mappedBy="house_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $equipement;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Couchage", mappedBy="house_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Couchage", mappedBy="house_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $couchage;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Cuisine", mappedBy="house_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Cuisine", mappedBy="house_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $cuisine;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ameublement", mappedBy="house_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Ameublement", mappedBy="house_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $ameublement;
 
@@ -243,8 +243,8 @@ class ForRentM implements \JsonSerializable
 
         return $this;
     }
-    
-    
+
+
 
     public function getTransport(): ?Transport
     {
@@ -371,7 +371,7 @@ class ForRentM implements \JsonSerializable
 
         return $this;
     }
-    
+
     public function jsonSerialize() {
 
         return  get_object_vars($this);

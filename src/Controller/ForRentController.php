@@ -55,10 +55,10 @@ class ForRentController extends AbstractController
         return new JsonResponse(array('success' => true));
     }
 
-  
-    
+
+
      /**
-     * @Route("/allData", name="alldataLL")
+     * @Route("/allData", name="alldataLL2")
      */
 
     public function getRENT(){
@@ -68,10 +68,8 @@ class ForRentController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
-    
-    
-   
-}
 
-  
+
+
+
+}
