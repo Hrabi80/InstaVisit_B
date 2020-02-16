@@ -20,9 +20,9 @@ class TransportRepository extends ServiceEntityRepository
     }
 
      /**
-      * @return Transport[] 
+      * @return Transport[]
       */
-    
+
     public function findTaxi($id){
         $qb = $this->createQueryBuilder('Qr');
 
@@ -30,14 +30,14 @@ class TransportRepository extends ServiceEntityRepository
             ->select('Qr')
             ->leftJoin('Qr.house_id','p')
             ->where('Qr.house_id ='.$id);
-               
+
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
     /**
-      * @return Transport[] 
+      * @return Transport[]
       */
-    
+
     public function findTaxiLM($id){
         $qb = $this->createQueryBuilder('Qr');
 
@@ -45,7 +45,23 @@ class TransportRepository extends ServiceEntityRepository
             ->select('Qr')
             ->leftJoin('Qr.houseLM_id','p')
             ->where('Qr.houseLM_id ='.$id);
-               
+
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
+
+    /**
+      * @return Transport[]
+      */
+
+    public function findTaxiLNM($id){
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.housenm','p')
+            ->where('Qr.housenm ='.$id);
+
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }

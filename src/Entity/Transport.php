@@ -77,6 +77,11 @@ class Transport
      */
     private $houseLM_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ForRent", inversedBy="transport", cascade={"persist", "remove"})
+     */
+    private $housenm;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -222,6 +227,24 @@ class Transport
     public function setHouseLMId(?ForRentM $houseLM_id): self
     {
         $this->houseLM_id = $houseLM_id;
+
+        return $this;
+    }
+
+    public function getHousenm(): ?ForRent
+    {
+        return $this->housenm;
+    }
+
+    public function setHousenm(?ForRent $housenm): self
+    {
+        $this->housenm = $housenm;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTransport = $housenm === null ? null : $this;
+        if ($newTransport !== $housenm->getTransport()) {
+            $housenm->setTransport($newTransport);
+        }
 
         return $this;
     }

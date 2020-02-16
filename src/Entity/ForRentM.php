@@ -107,6 +107,11 @@ class ForRentM implements \JsonSerializable
      */
     private $ameublement;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $piece;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -375,5 +380,17 @@ class ForRentM implements \JsonSerializable
     public function jsonSerialize() {
 
         return  get_object_vars($this);
+    }
+
+    public function getPiece(): ?int
+    {
+        return $this->piece;
+    }
+
+    public function setPiece(?int $piece): self
+    {
+        $this->piece = $piece;
+
+        return $this;
     }
 }

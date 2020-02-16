@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\ForRent;
+use App\Entity\Vcar;
+use App\Entity\Transport;
+use App\Entity\Map;
 
 
    /**
@@ -47,6 +50,8 @@ class ForRentController extends AbstractController
         $nvH->setDescription4($request->get('description4'));
         $nvH->setPrice($request->get('price'));
         $nvH->setRoomNB($request->get('Tx'));
+        $pp=$request->get('Tx');
+        $nvH->setPiece($pp+1);
         $nvH->setSurface($request->get('surface'));
         $em = $this->getDoctrine()->getManager();
         $em->persist($nvH);
@@ -67,6 +72,71 @@ class ForRentController extends AbstractController
         $loc = $em->getRepository('App:ForRent')->findAll();
 
          return new JsonResponse($loc);
+    }
+
+    /**
+     * @Route("/AddTransport/{id}", name="add_transpNM")
+     */
+    public function addTransport(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = json_decode($request->getContent(), true);
+        $station= new Transport();
+        $toBuy = $em->getRepository('App:ForRent')->find($id);
+        $station->setHousenm($toBuy);
+        $station->setBus($data['bus']);
+        $station->setBusST($data['busST']);
+        $station->setLouage($data['louage']);
+        $station->setLouageST($data['louageST']);
+        //$station->setLouageM('taxi');
+        $station->setMetro($data['metro']);
+        $station->setMetroST($data['metroST']);
+        $station->setTrain($data['train']);
+        $station->setTrainST($data['trainST']);
+
+
+        $em->persist($station);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
+
+    }
+    /**
+     * @Route("/AddInfo/{id}", name="add_MyinfoNM")
+     */
+    public function addInfo(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $data = json_decode($request->getContent(), true);
+        $info = new Vcar();
+        $toBuy = $em->getRepository('App:ForRent')->find($id);
+        $info->setAscenceur($data['elevator']);
+        $info->setCave($data['cave']);
+        $info->setEtage($data['etage']);
+        $info->setGarage($data['garage']);
+        $info->setGardienne($data['garden']);
+        $info->setParking($data['parking']);
+        $info->setHousenm($toBuy);
+        $em->persist($info);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
+    }
+
+     /**
+     * @Route("/AddMap/{id}", name="add_info")
+     */
+    public function addMap(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $data = json_decode($request->getContent(), true);
+        $map = new Map();
+        $toBuy = $em->getRepository('App:ForRent')->find($id);
+        $map->setMap($data['map']);
+        $map->setVirtualTour($data['virtual']);
+        $map->setHousenm($toBuy);
+        $em->persist($map);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
     }
 
 

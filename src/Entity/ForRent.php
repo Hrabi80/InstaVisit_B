@@ -71,6 +71,26 @@ class ForRent implements \JsonSerializable
      */
     private $cover;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $piece;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", inversedBy="housenm", cascade={"persist", "remove"})
+     */
+    private $transport;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vcar", inversedBy="housenm", cascade={"persist", "remove"})
+     */
+    private $Vcar;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", inversedBy="housenm", cascade={"persist", "remove"})
+     */
+    private $map;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -211,5 +231,53 @@ class ForRent implements \JsonSerializable
     public function jsonSerialize() {
 
         return  get_object_vars($this);
+    }
+
+    public function getPiece(): ?int
+    {
+        return $this->piece;
+    }
+
+    public function setPiece(?int $piece): self
+    {
+        $this->piece = $piece;
+
+        return $this;
+    }
+
+    public function getTransport(): ?Transport
+    {
+        return $this->transport;
+    }
+
+    public function setTransport(?Transport $transport): self
+    {
+        $this->transport = $transport;
+
+        return $this;
+    }
+
+    public function getVcar(): ?Vcar
+    {
+        return $this->Vcar;
+    }
+
+    public function setVcar(?Vcar $Vcar): self
+    {
+        $this->Vcar = $Vcar;
+
+        return $this;
+    }
+
+    public function getMap(): ?Map
+    {
+        return $this->map;
+    }
+
+    public function setMap(?Map $map): self
+    {
+        $this->map = $map;
+
+        return $this;
     }
 }

@@ -30,11 +30,11 @@ class VcarRepository extends ServiceEntityRepository
             ->select('Qr')
             ->leftJoin('Qr.ID_house','p')
             ->where('Qr.ID_house ='.$id);
-               
+
          return $qb->getQuery()->execute();
       // return $qb->getQuery()->getArrayResult();
-    } 
-    
+    }
+
      /**
      * @return Vcar[] Returns an array of Vcar objects
     */
@@ -46,10 +46,27 @@ class VcarRepository extends ServiceEntityRepository
             ->select('Qr')
             ->leftJoin('Qr.houseLM_id','p')
             ->where('Qr.houseLM_id ='.$id);
-               
+
          return $qb->getQuery()->execute();
       // return $qb->getQuery()->getArrayResult();
-    } 
+    }
+
+    /**
+    * @return Vcar[] Returns an array of Vcar objects
+   */
+     public function findCaveLNM($id)
+   {
+     $qb = $this->createQueryBuilder('Qr');
+
+       $qb
+           ->select('Qr')
+           ->leftJoin('Qr.housenm','p')
+           ->where('Qr.housenm ='.$id);
+
+        return $qb->getQuery()->execute();
+     // return $qb->getQuery()->getArrayResult();
+   }
+
     /*
     public function findByExampleField($value)
     {

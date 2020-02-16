@@ -54,6 +54,9 @@ class ForRentMController extends AbstractController
         $nvH->setDescription4($request->get('description4'));
         $nvH->setPrice($request->get('price'));
         $nvH->setRoomNB($request->get('Tx'));
+        $pp=$request->get('Tx');
+        $nvH->setPiece($pp+1);
+
         $nvH->setSurface($request->get('surface'));
         $em = $this->getDoctrine()->getManager();
         $em->persist($nvH);

@@ -11,11 +11,23 @@ use App\Entity\ForRentM;
 
 
    /**
-   * @Route("/api/Loutput")
+   * @Route("/public/Loutput")
    */
 class LoutputController extends AbstractController
 {
 
+
+  /**
+   * @Route("/getLNM", name="aldataLNM")
+   */
+
+  public function getRentLNM(){
+
+      $em = $this->getDoctrine()->getManager();
+      $loc = $em->getRepository('App:ForRent')->findAll();
+
+       return new JsonResponse($loc);
+  }
     /**
      * @Route("/getallDataLM", name="aldataLM")
      */
@@ -27,7 +39,7 @@ class LoutputController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
+
      /**
      * @Route("/arrayData", name="hvDataLM")
      */
@@ -57,13 +69,22 @@ class LoutputController extends AbstractController
          return new JsonResponse($arrayCollection);
       //  return $this->json($arrayCollection);
     }
-    
+
     /**
      * @Route("/getDetail/{id}" , name="getDetailsLM")
      */
     public function getDetailsLM($id){
         $em = $this->getDoctrine()->getManager();
         $info = $em->getRepository('App:ForRentM')->find($id);
+         return new JsonResponse($info);
+    }
+
+    /**
+     * @Route("/getDetailNM/{id}" , name="getDetailsLNM")
+     */
+    public function getDetailsLNM($id){
+        $em = $this->getDoctrine()->getManager();
+        $info = $em->getRepository('App:ForRent')->find($id);
          return new JsonResponse($info);
     }
      /**
@@ -75,7 +96,7 @@ class LoutputController extends AbstractController
         $arrayCollection = array();
         foreach($parking as $item) {
         $arrayCollection[] = array(
-            
+
        //  'id' => $item->getId(),
          'parking' => $item->getParking(),
          'garage'=> $item->getGarage(),
@@ -87,6 +108,29 @@ class LoutputController extends AbstractController
         }
          return new JsonResponse($arrayCollection);
     }
+
+    /**
+    * @Route("/getcarNM/{id}" , name="getcaracteristicsLNM")
+    */
+   public function getCarctLNM($id){
+       $em = $this->getDoctrine()->getManager();
+       $parking = $em->getRepository('App:Vcar')->findCaveLNM($id);
+       $arrayCollection = array();
+       foreach($parking as $item) {
+       $arrayCollection[] = array(
+
+      //  'id' => $item->getId(),
+        'parking' => $item->getParking(),
+        'garage'=> $item->getGarage(),
+        'cave'=> $item->getCave(),
+        'elevator'=> $item->getAscenceur(),
+        'etage'=> $item->getEtage(),
+        'garden'=> $item->getGardienne(),
+        );
+       }
+        return new JsonResponse($arrayCollection);
+   }
+
     /**
      * @Route("/getStation/{id}" , name="getStationLM")
      */
@@ -95,6 +139,16 @@ class LoutputController extends AbstractController
         $bus = $em->getRepository('App:Transport')->findTaxiLM($id);
          return new JsonResponse($bus);
     }
+
+    /**
+     * @Route("/getStationNM/{id}" , name="getStationLNM")
+     */
+    public function getStationLNM($id){
+        $em = $this->getDoctrine()->getManager();
+        $bus = $em->getRepository('App:Transport')->findTaxiLNM($id);
+         return new JsonResponse($bus);
+    }
+
     /**
      * @Route("/getMap/{id}" , name="getMapLM")
      */
@@ -103,7 +157,16 @@ class LoutputController extends AbstractController
         $map = $em->getRepository('App:Map')->findMapLM($id);
          return new JsonResponse($map);
     }
-    
+
+    /**
+     * @Route("/getMapNM/{id}" , name="getMapLNM")
+     */
+    public function getMapLNM($id){
+        $em = $this->getDoctrine()->getManager();
+        $map = $em->getRepository('App:Map')->findMapLNM($id);
+         return new JsonResponse($map);
+    }
+
     /**
      * @Route("/getAmeubl/{id}" , name="getcsqdatidqdqcsLM")
      */
@@ -128,7 +191,7 @@ class LoutputController extends AbstractController
         $map = $em->getRepository('App:Cuisine')->findCui($id);
          return new JsonResponse($map);
     }
-    
+
     /**
      * @Route("/getEquip/{id}" , name="getMsdqsdqLM")
      */
@@ -138,4 +201,3 @@ class LoutputController extends AbstractController
          return new JsonResponse($map);
     }
 }
-

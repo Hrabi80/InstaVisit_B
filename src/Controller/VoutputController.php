@@ -9,11 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\ToBuy;
+use App\Entity\ForRentM;
 
 
-   /**
-   * @Route("/api/output")
-   */
+ /**
+ * @Route("/public/output")
+ */
 class VoutputController extends AbstractController
 {
 
@@ -28,7 +29,7 @@ class VoutputController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
+
      /**
      * @Route("/arrayData", name="hvData")
      */
@@ -58,7 +59,21 @@ class VoutputController extends AbstractController
          return new JsonResponse($arrayCollection);
       //  return $this->json($arrayCollection);
     }
-    
+
+    /**
+    * @Route("/welcomeD", name="wlDatax")
+    */
+
+    public function getWData(){
+
+
+          $em = $this->getDoctrine()->getManager();
+          $loc = $em->getRepository('App:ForRentM')->findAll();
+
+           return new JsonResponse($loc);
+      }
+
+
     /**
      * @Route("/getDetail/{id}" , name="getDetails")
      */
@@ -76,7 +91,7 @@ class VoutputController extends AbstractController
         $arrayCollection = array();
         foreach($parking as $item) {
         $arrayCollection[] = array(
-            
+
        //  'id' => $item->getId(),
          'parking' => $item->getParking(),
          'garage'=> $item->getGarage(),
@@ -105,4 +120,3 @@ class VoutputController extends AbstractController
          return new JsonResponse($map);
     }
 }
-

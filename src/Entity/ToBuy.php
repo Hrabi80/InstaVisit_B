@@ -99,6 +99,11 @@ class ToBuy implements \JsonSerializable
      */
     private $map;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $piece;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -312,6 +317,18 @@ class ToBuy implements \JsonSerializable
         if ($newHouse_id !== $map->getHouseId()) {
             $map->setHouseId($newHouse_id);
         }
+
+        return $this;
+    }
+
+    public function getPiece(): ?int
+    {
+        return $this->piece;
+    }
+
+    public function setPiece(?int $piece): self
+    {
+        $this->piece = $piece;
 
         return $this;
     }
