@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 use App\Entity\ToBuy;
 use App\Entity\Vcar;
 use App\Entity\Transport;
@@ -26,7 +27,7 @@ class ToBuyController extends AbstractController
     {
          $data = json_decode($request->getContent(), true);
          $uploadedImage=$request->files->get('mainIMG');
-         $uploadedImage2=$request->files->get('cover');
+         $uploadedImage2=$request->files->get('mainIMG');
       //  $uploadedImage=upload();
                /**
                  * @var UploadedFile $image
@@ -107,6 +108,65 @@ class ToBuyController extends AbstractController
         $em->flush();
 
         return new JsonResponse(array('success' => true));
+    }
+    /**
+     * @Route("/getHouseInfo/{id}" , name="getHouseVInfo")
+     */
+    public function getHouseVInfo($id){
+        $em = $this->getDoctrine()->getManager();
+        $info = $em->getRepository('App:ToBuy')->find($id);
+         return new JsonResponse($info);
+    }
+
+    /**
+     * @Route("/updateIMG/{id}" , name="updateHouseimg", methods="PUT")
+     * @param int $id
+     */
+    public function updateIMG(Request $request, $id){
+    //  $data = json_decode($request->files->getContent(), true);
+
+      $uploadedImage=$request->files->get('mainIMG');
+      $uploadedImage2=$request->files->get('cover');
+      //$uploadedImage2=$data['cover'];
+
+  //    $uploadedImage=upload();
+               /**
+                 * @var UploadedFile $image
+                */
+            $image=$uploadedImage;
+            $cover = $uploadedImage2;
+            $imageName=md5(uniqid()).'.'.$image->guessExtension();
+            $image->move($this->getParameter('avatar_dir'),$imageName);
+            $imagename2=md5(uniqid()).'.'.$cover->guessExtension();
+            $cover->move($this->getParameter('avatar_dir'),$imagename2);
+      $entityManager = $this->getDoctrine()->getManager();
+      $info = $entityManager->getRepository(ToBuy::class)->find($id);
+      $info->setMainIMG($imageName);
+      $info->setCover($imagename2);
+
+      $entityManager->flush();
+      return new JsonResponse(array('success' => true));
+    }
+    /**
+     * @Route("/updateHouseInfo/{id}" , name="updateHouseInfo", methods="PUT")
+     * @param int $id
+     */
+    public function updateHouseInfo(Request $request, $id){
+      $data = json_decode($request->getContent(), true);
+      $entityManager = $this->getDoctrine()->getManager();
+      $info = $entityManager->getRepository(ToBuy::class)->find($id);
+      $info->setAdress($data['adress']);
+      $info->setCity($data['city']);
+      $info->setDescription($data['description']);
+      $info->setDescription2($data['description2']);
+      $info->setDescription3($data['description3']);
+      $info->setRoomNB($data['Tx']);
+      $pp=$data['Tx'];
+      $info->setPiece($pp+1);
+      $info->setPrice($data['price']);
+      $info->setSurface($data['surface']);
+      $entityManager->flush();
+      return new JsonResponse(array('success' => true));
     }
 
     /**
