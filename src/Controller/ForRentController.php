@@ -73,6 +73,20 @@ class ForRentController extends AbstractController
 
          return new JsonResponse($loc);
     }
+    /**
+     * @Route("/delete/{id}")
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $forRentM = $em->getRepository('App:ForRent')->find($id);
+       // $project.remove
+        $em->remove($forRentM);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
+    }
+
 
     /**
      * @Route("/AddTransport/{id}", name="add_transpNM")

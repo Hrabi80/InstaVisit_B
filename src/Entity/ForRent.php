@@ -77,17 +77,17 @@ class ForRent implements \JsonSerializable
     private $piece;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transport", inversedBy="housenm", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="housenm", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $transport;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vcar", inversedBy="housenm", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Vcar", mappedBy="housenm", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $Vcar;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Map", inversedBy="housenm", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="housenm", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $map;
 
@@ -227,7 +227,7 @@ class ForRent implements \JsonSerializable
 
         return $this;
     }
-    
+
     public function jsonSerialize() {
 
         return  get_object_vars($this);
