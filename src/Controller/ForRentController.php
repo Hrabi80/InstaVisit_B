@@ -123,7 +123,7 @@ class ForRentController extends AbstractController
     }
 
      /**
-     * @Route("/AddMap/{id}", name="add_info")
+     * @Route("/AddMap/{id}", name="add_mapinfo")
      */
     public function addMap(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
