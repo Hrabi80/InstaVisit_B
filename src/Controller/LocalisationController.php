@@ -15,8 +15,8 @@ use App\Entity\Localisation;
 
 class LocalisationController extends AbstractController
 {
-    
-    
+
+
      /**
      * @Route("/AddLoc", name="add_location")
      */
@@ -32,7 +32,7 @@ class LocalisationController extends AbstractController
 
         return new JsonResponse(array('success' => true));
     }
-    
+
     /**
      * @Route("/allLoc", name="all_locations")
      */
@@ -44,7 +44,20 @@ class LocalisationController extends AbstractController
 
          return new JsonResponse($loc);
     }
-    
+    /**
+     * @Route("/delete/{id}")
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $loc = $em->getRepository('App:Localisation')->find($id);
+       // $project.remove
+        $em->remove($loc);
+        $em->flush();
+
+        return new JsonResponse(array('success' => true));
+    }
+
       /**
      * @Route("/getLocs", name="all_locs")
      */
@@ -52,11 +65,11 @@ class LocalisationController extends AbstractController
     public function getLocs(){
 
          $loc = new Localisation();
-        
+
         $arrayCollection = array();
         foreach($loc as $item) {
         $arrayCollection[] = array(
-            
+
          'id' => $item->getId(),
          'city' => $item->getCity(),
          'gov'=> $item->getGover(),

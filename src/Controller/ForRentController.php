@@ -100,13 +100,13 @@ class ForRentController extends AbstractController
         $station->setHousenm($toBuy);
         $station->setBus($data['bus']);
         $station->setBusST($data['busST']);
-        $station->setLouage($data['louage']);
-        $station->setLouageST($data['louageST']);
+        //$station->setLouage($data['louage']);
+        //$station->setLouageST($data['louageST']);
         //$station->setLouageM('taxi');
         $station->setMetro($data['metro']);
         $station->setMetroST($data['metroST']);
-        $station->setTrain($data['train']);
-        $station->setTrainST($data['trainST']);
+        //$station->setTrain($data['train']);
+        //$station->setTrainST($data['trainST']);
 
 
         $em->persist($station);

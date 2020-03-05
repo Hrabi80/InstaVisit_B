@@ -21,13 +21,13 @@ class ToBuyController extends AbstractController
 
 
      /**
-     * @Route("/AddHouse", name="add_newHoue")
+     * @Route("/AddHouse", name="add_newHouse")
      */
     public function AddNewHouse(Request $request)
     {
          $data = json_decode($request->getContent(), true);
          $uploadedImage=$request->files->get('mainIMG');
-         $uploadedImage2=$request->files->get('mainIMG');
+         $uploadedImage2=$request->files->get('cover');
       //  $uploadedImage=upload();
                /**
                  * @var UploadedFile $image
@@ -181,13 +181,13 @@ class ToBuyController extends AbstractController
         $station->setHouseId($toBuy);
         $station->setBus($data['bus']);
         $station->setBusST($data['busST']);
-        $station->setLouage($data['louage']);
-        $station->setLouageST($data['louageST']);
+      //  $station->setLouage($data['louage']);
+      //  $station->setLouageST($data['louageST']);
         //$station->setLouageM('taxi');
         $station->setMetro($data['metro']);
         $station->setMetroST($data['metroST']);
-        $station->setTrain($data['train']);
-        $station->setTrainST($data['trainST']);
+      //  $station->setTrain($data['train']);
+        //$station->setTrainST($data['trainST']);
 
 
         $em->persist($station);

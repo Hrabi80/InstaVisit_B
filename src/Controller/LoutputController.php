@@ -159,7 +159,7 @@ class LoutputController extends AbstractController
     }
 
     /**
-     * @Route("/getMapNM/{id}" , name="getMapLNM")
+     * @Route("/getMapNM/{id}" , name="getMapLNssM")
      */
     public function getMapLNM($id){
         $em = $this->getDoctrine()->getManager();

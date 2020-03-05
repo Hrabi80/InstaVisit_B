@@ -33,14 +33,14 @@ class UpdateController extends AbstractController{
     $data = json_decode($request->getContent(), true);
     $entityManager = $this->getDoctrine()->getManager();
     $info = $entityManager->getRepository(Transport::class)->find($id);
-    $info->setLouageST($data['louageST']);
-    $info->setLouage($data['louage']);
+    //$info->setLouageST($data['louageST']);
+    //$info->setLouage($data['louage']);
     $info->setBus($data['bus']);
     $info->setBusST($data['busST']);
     $info->setMetroST($data['metroST']);
     $info->setMetro($data['metro']);
-    $info->setTrainST($data['trainST']);
-    $info->setTrain($data['train']);
+  //  $info->setTrainST($data['trainST']);
+    //$info->setTrain($data['train']);
 
     $entityManager->flush();
     return new JsonResponse(array('success' => true));

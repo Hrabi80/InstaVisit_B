@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
  */
-class Contact
+class Contact implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -31,7 +31,7 @@ class Contact
      */
     private $message;
 
-   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,5 +71,9 @@ class Contact
         $this->message = $message;
 
         return $this;
+    }
+    public function jsonSerialize() {
+
+        return  get_object_vars($this);
     }
 }
