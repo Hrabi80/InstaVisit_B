@@ -82,6 +82,11 @@ class Transport
      */
     private $housenm;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Salle", inversedBy="transport", cascade={"persist", "remove"})
+     */
+    private $salle_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -245,6 +250,18 @@ class Transport
         if ($newTransport !== $housenm->getTransport()) {
             $housenm->setTransport($newTransport);
         }
+
+        return $this;
+    }
+
+    public function getSalleId(): ?Salle
+    {
+        return $this->salle_id;
+    }
+
+    public function setSalleId(?Salle $salle_id): self
+    {
+        $this->salle_id = $salle_id;
 
         return $this;
     }

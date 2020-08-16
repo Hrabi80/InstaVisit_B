@@ -67,17 +67,6 @@ class ForRentMController extends AbstractController
 
 
 
-     /**
-     * @Route("/allData", name="alldataLL")
-     */
-
-    public function getLocations(){
-
-        $em = $this->getDoctrine()->getManager();
-        $loc = $em->getRepository('App:ToBuy')->findAll();
-
-         return new JsonResponse($loc);
-    }
 
     /**
      * @Route("/allData", name="alldataLL")

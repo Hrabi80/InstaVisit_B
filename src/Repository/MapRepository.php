@@ -71,6 +71,22 @@ class MapRepository extends ServiceEntityRepository
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
+
+    /**
+      * @return Map[]
+      */
+
+    public function findMapSalle($id){
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.salle_id','p')
+            ->where('Qr.salle_id ='.$id);
+
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
     /*
     public function findByExampleField($value)
     {

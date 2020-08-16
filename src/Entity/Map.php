@@ -42,6 +42,11 @@ class Map
      */
     private $housenm;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Salle", inversedBy="map", cascade={"persist", "remove"})
+     */
+    private $salle_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,6 +114,18 @@ class Map
         if ($newMap !== $housenm->getMap()) {
             $housenm->setMap($newMap);
         }
+
+        return $this;
+    }
+
+    public function getSalleId(): ?Salle
+    {
+        return $this->salle_id;
+    }
+
+    public function setSalleId(?Salle $salle_id): self
+    {
+        $this->salle_id = $salle_id;
 
         return $this;
     }

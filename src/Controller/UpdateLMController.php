@@ -22,7 +22,7 @@ class UpdateLMController extends AbstractController{
 
 
   /**
-   * @Route("/getHouseInfo/{id}" , name="getHouseLMInfo")
+   * @Route("/getHouseInfo/{id}" , name="getHouseLMInfods")
    */
   public function getHouseVInfo($id){
       $em = $this->getDoctrine()->getManager();
@@ -38,7 +38,7 @@ class UpdateLMController extends AbstractController{
        return new JsonResponse($bus);
   }
   /**
-   * @Route("/UpdateLMTR/{id}" , name="updatetrVvLNMxx", methods="PUT")
+   * @Route("/UpdateLMTR/{id}" , name="updatetrsdVvLNMxx", methods="PUT")
    * @param int $id
    */
   public function updateTransport(Request $request,$id){
@@ -59,25 +59,13 @@ class UpdateLMController extends AbstractController{
   }
 
   /**
-   * @Route("/getParkingLM/{id}" , name="getHparadcsdLNMwxcwc")
+   * @Route("/getParkingLM/{id}" , name="getHparadsddscsdLNMwxcwc")
    */
-  public function getParkingV($id){
-      $em = $this->getDoctrine()->getManager();
-      $bus = $em->getRepository('App:Vcar')->findCaveLM($id);
-      $arrayCollection = array();
-      foreach($bus as $item) {
-      $arrayCollection[] = array(
-
-       'id' => $item->getId(),
-       'parking' => $item->getParking(),
-       'garage'=> $item->getGarage(),
-       'cave'=> $item->getCave(),
-       'elevator'=> $item->getAscenceur(),
-       'etage'=> $item->getEtage(),
-       'garden'=> $item->getGardienne(),
-     );}
-       return new JsonResponse($arrayCollection);
-  }
+   public function getParkingLMds($id){
+       $em = $this->getDoctrine()->getManager();
+       $bus = $em->getRepository('App:Vcar')->findCaveLM($id);
+        return new JsonResponse($bus);
+   }
 
   /**
    * @Route("/UpdateParkingLM/{id}" , name="updatetcxcwrparvLNM", methods="PUT")
@@ -149,7 +137,7 @@ class UpdateLMController extends AbstractController{
     return new JsonResponse(array('success' => true));
   }
   /**
-   * @Route("/updateHouseInfo/{id}" , name="updateHouseLcwwcMInfo", methods="PUT")
+   * @Route("/updateHouseInfo/{id}" , name="updateHouseLcwwcMsqInfo", methods="PUT")
    * @param int $id
    */
   public function updateHouseInfo(Request $request, $id){
@@ -193,7 +181,7 @@ class UpdateLMController extends AbstractController{
   }
 
   /**
-   * @Route("/getCuisine/{id}" , name="getCuiiLsdM")
+   * @Route("/getCuisine/{id}" , name="getqsdvxwxbvCuiiLsdM")
    */
   public function getCuisine($id){
       $em = $this->getDoctrine()->getManager();
@@ -219,7 +207,7 @@ class UpdateLMController extends AbstractController{
   }
 
   /**
-   * @Route("/getEquip/{id}" , name="getMsdqsdqLsqM")
+   * @Route("/getEquip/{id}" , name="getMsdqsdqLsqwwcvbbgezaM")
    */
   public function getEquip($id){
       $em = $this->getDoctrine()->getManager();
@@ -245,7 +233,7 @@ class UpdateLMController extends AbstractController{
   }
 
   /**
-   * @Route("/getAmm/{id}" , name="getMssqdsqdqsdqLM")
+   * @Route("/getAmm/{id}" , name="getMssqdsqxcgezfdqsdqLM")
    */
   public function getAmm($id){
       $em = $this->getDoctrine()->getManager();
@@ -253,7 +241,7 @@ class UpdateLMController extends AbstractController{
        return new JsonResponse($map);
   }
   /**
-   * @Route("/UpdateAmm/{id}" , name="Updatvvbvbeadas", methods="PUT")
+   * @Route("/UpdateAmm/{id}" , name="Updatvvbvbeadazersas", methods="PUT")
    * @param int $id
    */
   public function UpdateAMM(Request $request,$id){
