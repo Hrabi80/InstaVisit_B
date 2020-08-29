@@ -14,15 +14,15 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class AmeublementRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry)
     {
         parent::__construct($registry, Ameublement::class);
     }
-    
+
     /**
-      * @return Ameublement[] 
+      * @return Ameublement[]
       */
-    
+
     public function findAm($id){
         $qb = $this->createQueryBuilder('Qr');
 
@@ -30,7 +30,7 @@ class AmeublementRepository extends ServiceEntityRepository
             ->select('Qr')
             ->leftJoin('Qr.house_id','p')
             ->where('Qr.house_id ='.$id);
-               
+
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }

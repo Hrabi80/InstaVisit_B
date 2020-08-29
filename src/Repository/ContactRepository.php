@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ContactRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry)//RegistryInterface $registry)
     {
         parent::__construct($registry, Contact::class);
     }

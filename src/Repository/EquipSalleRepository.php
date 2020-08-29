@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class EquipSalleRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry)
     {
         parent::__construct($registry, EquipSalle::class);
     }
@@ -29,7 +29,7 @@ class EquipSalleRepository extends ServiceEntityRepository
             ->select('Qr')
             ->leftJoin('Qr.salle_id','p')
             ->where('Qr.salle_id ='.$id);
-               
+
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
