@@ -108,17 +108,13 @@ class UpdateLMController extends AbstractController{
     return new JsonResponse(array('success' => true));
   }
   /**
-   * @Route("/updateIMG/{id}" , name="updateHouseLMimg", methods="PUT")
+   * @Route("/updateIMG/{id}" , name="updateHouseLMiaemg")
    * @param int $id
    */
   public function updateIMG(Request $request, $id){
-  //  $data = json_decode($request->files->getContent(), true);
 
     $uploadedImage=$request->files->get('mainIMG');
     $uploadedImage2=$request->files->get('cover');
-    //$uploadedImage2=$data['cover'];
-
-//    $uploadedImage=upload();
              /**
                * @var UploadedFile $image
               */

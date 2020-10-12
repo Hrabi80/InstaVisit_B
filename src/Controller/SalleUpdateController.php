@@ -131,7 +131,7 @@ class SalleUpdateController extends AbstractController {
     $info->setPrice($data['price']);
     $info->setSurface($data['surface']);
     $info->setResponsable($data['responsable']);
-    $info->setTel($data['telp']);
+    $info->setTel($data['tel']);
     $info->setMail($data['mail']);
     $entityManager->flush();
     return new JsonResponse(array('success' => true));

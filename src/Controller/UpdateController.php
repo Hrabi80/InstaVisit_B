@@ -5,7 +5,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Form\ImageUploadType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints\Image;
+
 
 use App\Entity\ToBuy;
 use App\Entity\Vcar;
@@ -107,5 +110,43 @@ class UpdateController extends AbstractController{
     $entityManager->flush();
     return new JsonResponse(array('success' => true));
   }
+
+
+   /**
+   * @Route("/updateIMG/{id}" , name="updateHventeMIimg")
+   * @param int $id
+   */
+  public function updateIMG(Request $request, $id){
+  //  $data = json_decode($request->files->getContent(), true);
+  //  $data = json_decode($request->getContent(), true);
+    $uploadedImage=$request->files->get('mainIMG');
+    $uploadedImage2=$request->files->get('cover');
+
+         /**
+          * @var UploadedFile $image
+         */
+          $image=$uploadedImage;
+          $cover = $uploadedImage2;
+          if(  is_null($uploadedImage)){
+            return new JsonResponse(array('emty' => true));
+          }else{
+
+          $imageName=md5(uniqid()).'.'.$image->guessExtension();
+          $image->move($this->getParameter('avatar_dir'),$imageName);
+          $imagename2=md5(uniqid()).'.'.$cover->guessExtension();
+          $cover->move($this->getParameter('avatar_dir'),$imagename2);
+    $entityManager = $this->getDoctrine()->getManager();
+    $info = $entityManager->getRepository(ToBuy::class)->find($id);
+    $info->setMainIMG($imageName);
+    $info->setCover($imagename2);
+
+    $entityManager->flush();
+    return new JsonResponse(array('success' => true));
+  }
+  }
+
+
+
+
 }
 ?>
