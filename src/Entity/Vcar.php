@@ -62,6 +62,11 @@ class Vcar
      */
     private $housenm;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="car", cascade={"persist", "remove"})
+     */
+    private $coffe;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -176,6 +181,24 @@ class Vcar
         $newVcar = $housenm === null ? null : $this;
         if ($newVcar !== $housenm->getVcar()) {
             $housenm->setVcar($newVcar);
+        }
+
+        return $this;
+    }
+
+    public function getCoffe(): ?Coffe
+    {
+        return $this->coffe;
+    }
+
+    public function setCoffe(?Coffe $coffe): self
+    {
+        $this->coffe = $coffe;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCar = null === $coffe ? null : $this;
+        if ($coffe->getCar() !== $newCar) {
+            $coffe->setCar($newCar);
         }
 
         return $this;

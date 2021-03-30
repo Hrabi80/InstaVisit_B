@@ -87,6 +87,11 @@ class Transport
      */
     private $salle_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="transport", cascade={"persist", "remove"})
+     */
+    private $coffe_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -262,6 +267,24 @@ class Transport
     public function setSalleId(?Salle $salle_id): self
     {
         $this->salle_id = $salle_id;
+
+        return $this;
+    }
+
+    public function getCoffeId(): ?Coffe
+    {
+        return $this->coffe_id;
+    }
+
+    public function setCoffeId(?Coffe $coffe_id): self
+    {
+        $this->coffe_id = $coffe_id;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTransport = null === $coffe_id ? null : $this;
+        if ($coffe_id->getTransport() !== $newTransport) {
+            $coffe_id->setTransport($newTransport);
+        }
 
         return $this;
     }

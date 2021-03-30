@@ -47,6 +47,11 @@ class Map
      */
     private $salle_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="map", cascade={"persist", "remove"})
+     */
+    private $coffe_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,6 +131,24 @@ class Map
     public function setSalleId(?Salle $salle_id): self
     {
         $this->salle_id = $salle_id;
+
+        return $this;
+    }
+
+    public function getCoffeId(): ?Coffe
+    {
+        return $this->coffe_id;
+    }
+
+    public function setCoffeId(?Coffe $coffe_id): self
+    {
+        $this->coffe_id = $coffe_id;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newMap = null === $coffe_id ? null : $this;
+        if ($coffe_id->getMap() !== $newMap) {
+            $coffe_id->setMap($newMap);
+        }
 
         return $this;
     }
