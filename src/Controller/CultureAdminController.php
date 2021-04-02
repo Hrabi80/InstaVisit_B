@@ -122,6 +122,19 @@ class CultureAdminController extends AbstractController{
    return new JsonResponse(array('success' => true));
  }
 
+ /**
+  * @Route("/delete/{id}")
+  */
+ public function deleteAction($id){
+     $em = $this->getDoctrine()->getManager();
+
+     $forRentM = $em->getRepository('App:InstaCulure')->find($id);
+     $em->remove($forRentM);
+     $em->flush();
+
+     return new JsonResponse(array('success' => true));
+ }
+
 
 
 }

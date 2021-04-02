@@ -32,7 +32,7 @@ class CulturePublicController extends AbstractController
    */
   public function getCultureById($id){
       $em = $this->getDoctrine()->getManager();
-      $info = $em->getRepository('App:InstaCulture')->find($id);
+      $info = $em->getRepository('App:InstaCulure')->find($id);
        return new JsonResponse($info);
   }
 

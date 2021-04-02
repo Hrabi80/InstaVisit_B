@@ -12,7 +12,7 @@ use App\Entity\Map;
 use App\Entity\Techn;
 
 /**
-* @Route("/api/InstaResto")
+* @Route("/api/instaResto")
 */
 class RestoAdminController extends AbstractController{
 
@@ -102,14 +102,14 @@ class RestoAdminController extends AbstractController{
  }
 
  /**
- * @Route("/AddFiche/{id}", name="add_salle_fiche")
+ * @Route("/AddFiche/{id}")
  */
  public function addFicheResto(Request $request,$id){
    $em = $this->getDoctrine()->getManager();
    $data = json_decode($request->getContent(), true);
    $equip = new Techn();
    $salle = $em->getRepository('App:InstaResto')->find($id);
-   $equip->setSalleId($salle);
+   $equip->setInstaResto($salle);
    $equip->setToilette($data['toilette']);
    $equip->setBar($data['bar']);
    $equip->setParking($data['parking']);
@@ -118,6 +118,19 @@ class RestoAdminController extends AbstractController{
    $em->flush();
 
    return new JsonResponse(array('success' => true));
+ }
+
+ /**
+  * @Route("/delete/{id}")
+  */
+ public function deleteAction($id){
+     $em = $this->getDoctrine()->getManager();
+
+     $forRentM = $em->getRepository('App:InstaResto')->find($id);
+     $em->remove($forRentM);
+     $em->flush();
+
+     return new JsonResponse(array('success' => true));
  }
 
 

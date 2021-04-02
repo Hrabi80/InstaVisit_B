@@ -20,7 +20,7 @@ class RestoPublicController extends AbstractController
    * @Route("/getAll")
    */
 
-  public function getALL(){
+  public function getALL_resto(){
 
       $em = $this->getDoctrine()->getManager();
       $loc = $em->getRepository('App:InstaResto')->findAll();
