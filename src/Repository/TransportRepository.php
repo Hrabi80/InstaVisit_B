@@ -78,6 +78,34 @@ class TransportRepository extends ServiceEntityRepository
             ->where('Qr.salle_id ='.$id);
        return $qb->getQuery()->getArrayResult();
     }
+
+    /**
+      * @return Transport[]
+      */
+
+    public function findTaxiCulture($id){
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.instaCulure','p')
+            ->where('Qr.instaCulure ='.$id);
+       return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+      * @return Transport[]
+      */
+
+    public function findTaxiResto($id){
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.instaResto','p')
+            ->where('Qr.instaResto ='.$id);
+       return $qb->getQuery()->getArrayResult();
+    }
     /*
     public function findByExampleField($value)
     {

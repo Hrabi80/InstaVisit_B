@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\InstaCulure;
 use App\Entity\Transport;
 use App\Entity\Map;
+use App\Entity\Techn;
 
 
 /**
@@ -66,9 +67,9 @@ class CultureAdminController extends AbstractController{
 
 
   /**
-  * @Route("/AddMap/{id}", name="add_infoSalle_MAP")
+  * @Route("/AddMap/{id}")
   */
- public function addMapSalle(Request $request,$id){
+ public function addMapCulture(Request $request,$id){
      $em = $this->getDoctrine()->getManager();
      $data = json_decode($request->getContent(), true);
      $map = new Map();

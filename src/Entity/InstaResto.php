@@ -90,17 +90,17 @@ class InstaResto implements \JsonSerializable
     private $cover;
 
     /**
-     * @ORM\OneToOne(targetEntity=Techn::class, inversedBy="instaResto", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Techn::class, mappedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $tech;
 
     /**
-     * @ORM\OneToOne(targetEntity=Map::class, inversedBy="transport", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Map::class, mappedBy="culture_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $map;
 
     /**
-     * @ORM\OneToOne(targetEntity=Transport::class, inversedBy="instaResto", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Transport::class, mappedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $transport;
 

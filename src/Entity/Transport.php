@@ -93,12 +93,12 @@ class Transport
     private $coffe_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=InstaResto::class, mappedBy="transport", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\InstaResto", inversedBy="transport",cascade={"persist", "remove"})
      */
     private $instaResto;
 
     /**
-     * @ORM\OneToOne(targetEntity=InstaCulure::class, mappedBy="transport", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\InstaCulure", inversedBy="transport", cascade={"persist", "remove"})
      */
     private $instaCulure;
 

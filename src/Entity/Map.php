@@ -53,12 +53,12 @@ class Map
     private $coffe_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=InstaResto::class, mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\InstaResto", inversedBy="map", cascade={"persist", "remove"})
      */
     private $resto_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=InstaCulure::class, mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\InstaCulure", inversedBy="map", cascade={"persist", "remove"})
      */
     private $culture_id;
 
@@ -186,7 +186,7 @@ class Map
         return $this->culture_id;
     }
 
-    public function setInstaCulure(?InstaResto $culture_id): self
+    public function setInstaCulure(?InstaCulure $culture_id): self
     {
         $this->culture_id = $culture_id;
 

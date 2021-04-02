@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\InstaResto;
 use App\Entity\Transport;
 use App\Entity\Map;
+use App\Entity\Techn;
 
 /**
 * @Route("/api/InstaResto")

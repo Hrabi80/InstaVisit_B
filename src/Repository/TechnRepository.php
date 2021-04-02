@@ -32,6 +32,34 @@ class TechnRepository extends ServiceEntityRepository
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
+    /**
+      * @return Techn[]
+      */
+
+    public function findFicheCulture($id){
+        $qb = $this->createQueryBuilder('Qr');
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.instaCulure','p')
+            ->where('Qr.instaCulure ='.$id);
+
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
+    /**
+      * @return Techn[]
+      */
+
+    public function findFicheResto($id){
+        $qb = $this->createQueryBuilder('Qr');
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.instaResto','p')
+            ->where('Qr.instaResto ='.$id);
+
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
     // /**
     //  * @return Techn[] Returns an array of Techn objects
     //  */

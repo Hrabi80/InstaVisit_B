@@ -90,17 +90,17 @@ class InstaCulure implements \JsonSerializable
     private $cover;
 
     /**
-     * @ORM\OneToOne(targetEntity=Techn::class, inversedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Techn", mappedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $tech;
 
     /**
-     * @ORM\OneToOne(targetEntity=Transport::class, inversedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $transport;
 
     /**
-     * @ORM\OneToOne(targetEntity=Map::class, inversedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="culture_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $map;
 

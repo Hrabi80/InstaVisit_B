@@ -42,12 +42,12 @@ class Techn
     private $salle_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=InstaResto::class, mappedBy="tech", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\InstaResto", inversedBy="tech", cascade={"persist", "remove"})
      */
     private $instaResto;
 
     /**
-     * @ORM\OneToOne(targetEntity=InstaCulure::class, mappedBy="tech", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\InstaCulure", inversedBy="tech", cascade={"persist", "remove"})
      */
     private $instaCulure;
 
