@@ -92,6 +92,16 @@ class Transport
      */
     private $coffe_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity=InstaResto::class, mappedBy="transport", cascade={"persist", "remove"})
+     */
+    private $instaResto;
+
+    /**
+     * @ORM\OneToOne(targetEntity=InstaCulure::class, mappedBy="transport", cascade={"persist", "remove"})
+     */
+    private $instaCulure;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -284,6 +294,42 @@ class Transport
         $newTransport = null === $coffe_id ? null : $this;
         if ($coffe_id->getTransport() !== $newTransport) {
             $coffe_id->setTransport($newTransport);
+        }
+
+        return $this;
+    }
+
+    public function getInstaResto(): ?InstaResto
+    {
+        return $this->instaResto;
+    }
+
+    public function setInstaResto(?InstaResto $instaResto): self
+    {
+        $this->instaResto = $instaResto;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTransport = null === $instaResto ? null : $this;
+        if ($instaResto->getTransport() !== $newTransport) {
+            $instaResto->setTransport($newTransport);
+        }
+
+        return $this;
+    }
+
+    public function getInstaCulure(): ?InstaCulure
+    {
+        return $this->instaCulure;
+    }
+
+    public function setInstaCulure(?InstaCulure $instaCulure): self
+    {
+        $this->instaCulure = $instaCulure;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTransport = null === $instaCulure ? null : $this;
+        if ($instaCulure->getTransport() !== $newTransport) {
+            $instaCulure->setTransport($newTransport);
         }
 
         return $this;

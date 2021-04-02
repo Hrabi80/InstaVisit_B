@@ -89,6 +89,21 @@ class InstaCulure implements \JsonSerializable
      */
     private $cover;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Techn::class, inversedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
+     */
+    private $tech;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Transport::class, inversedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
+     */
+    private $transport;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Map::class, inversedBy="instaCulure", cascade={"persist", "remove"},orphanRemoval=true)
+     */
+    private $map;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -241,5 +256,41 @@ class InstaCulure implements \JsonSerializable
     public function jsonSerialize() {
 
         return  get_object_vars($this);
+    }
+
+    public function getTech(): ?Techn
+    {
+        return $this->tech;
+    }
+
+    public function setTech(?Techn $tech): self
+    {
+        $this->tech = $tech;
+
+        return $this;
+    }
+
+    public function getTransport(): ?Transport
+    {
+        return $this->transport;
+    }
+
+    public function setTransport(?Transport $transport): self
+    {
+        $this->transport = $transport;
+
+        return $this;
+    }
+
+    public function getMap(): ?Map
+    {
+        return $this->map;
+    }
+
+    public function setMap(?Map $map): self
+    {
+        $this->map = $map;
+
+        return $this;
     }
 }

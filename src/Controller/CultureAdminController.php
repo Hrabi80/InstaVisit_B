@@ -64,4 +64,63 @@ class CultureAdminController extends AbstractController{
      return new JsonResponse(array('success' => true));
  }
 
+
+  /**
+  * @Route("/AddMap/{id}", name="add_infoSalle_MAP")
+  */
+ public function addMapSalle(Request $request,$id){
+     $em = $this->getDoctrine()->getManager();
+     $data = json_decode($request->getContent(), true);
+     $map = new Map();
+     $salle = $em->getRepository('App:InstaCulure')->find($id);
+     $map->setMap($data['map']);
+     $map->setVirtualTour($data['virtual']);
+     $map->setInstaCulure($salle);
+     $em->persist($map);
+     $em->flush();
+
+     return new JsonResponse(array('success' => true));
+ }
+
+ /**
+  * @Route("/AddTransport/{id}")
+  */
+ public function addTransport_culture(Request $request, $id)
+ {
+     $em = $this->getDoctrine()->getManager();
+     $data = json_decode($request->getContent(), true);
+     $station= new Transport();
+     $salle = $em->getRepository('App:InstaCulure')->find($id);
+     $station->setInstaCulure($salle);
+     $station->setBus($data['bus']);
+     $station->setBusST($data['busST']);
+     $station->setMetro($data['metro']);
+     $station->setMetroST($data['metroST']);
+     $em->persist($station);
+     $em->flush();
+
+     return new JsonResponse(array('success' => true));
+ }
+
+ /**
+ * @Route("/AddFiche/{id}")
+ */
+ public function addFicheCulture(Request $request,$id){
+   $em = $this->getDoctrine()->getManager();
+   $data = json_decode($request->getContent(), true);
+   $equip = new Techn();
+   $salle = $em->getRepository('App:InstaCulure')->find($id);
+   $equip->setInstaCulure($salle);
+   $equip->setToilette($data['toilette']);
+   $equip->setBar($data['bar']);
+   $equip->setParking($data['parking']);
+   $equip->setHoraire($data['horaire']);
+   $em->persist($equip);
+   $em->flush();
+
+   return new JsonResponse(array('success' => true));
+ }
+
+
+
 }
