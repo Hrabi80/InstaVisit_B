@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191003204336 extends AbstractMigration
+final class Version20210401200520 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,9 @@ final class Version20191003204336 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE contact (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, message TINYTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE newsletter (id INT AUTO_INCREMENT NOT NULL, user_mail VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE coffee DROP FOREIGN KEY FK_538529B39909C13F');
+        $this->addSql('DROP INDEX UNIQ_538529B39909C13F ON coffee');
+        $this->addSql('ALTER TABLE coffee DROP transport_id');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +32,8 @@ final class Version20191003204336 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE contact');
-        $this->addSql('DROP TABLE newsletter');
+        $this->addSql('ALTER TABLE coffee ADD transport_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE coffee ADD CONSTRAINT FK_538529B39909C13F FOREIGN KEY (transport_id) REFERENCES transport (id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_538529B39909C13F ON coffee (transport_id)');
     }
 }
