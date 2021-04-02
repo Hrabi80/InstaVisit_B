@@ -62,6 +62,19 @@ class Vcar
      */
     private $housenm;
 
+<<<<<<< Updated upstream
+=======
+    /**
+     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="car", cascade={"persist", "remove"})
+     */
+    private $coffe;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Coffee::class, mappedBy="car", cascade={"persist", "remove"})
+     */
+    private $coffee;
+
+>>>>>>> Stashed changes
     public function getId(): ?int
     {
         return $this->id;
@@ -180,4 +193,47 @@ class Vcar
 
         return $this;
     }
+<<<<<<< Updated upstream
+=======
+
+    public function getCoffe(): ?Coffe
+    {
+        return $this->coffe;
+    }
+
+    public function setCoffe(?Coffe $coffe): self
+    {
+        $this->coffe = $coffe;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCar = null === $coffe ? null : $this;
+        if ($coffe->getCar() !== $newCar) {
+            $coffe->setCar($newCar);
+        }
+
+        return $this;
+    }
+
+    public function getCoffee(): ?Coffee
+    {
+        return $this->coffee;
+    }
+
+    public function setCoffee(?Coffee $coffee): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($coffee === null && $this->coffee !== null) {
+            $this->coffee->setCar(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($coffee !== null && $coffee->getCar() !== $this) {
+            $coffee->setCar($this);
+        }
+
+        $this->coffee = $coffee;
+
+        return $this;
+    }
+>>>>>>> Stashed changes
 }
