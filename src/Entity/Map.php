@@ -47,19 +47,6 @@ class Map
      */
     private $salle_id;
 
-<<<<<<< Updated upstream
-=======
-    /**
-     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="map", cascade={"persist", "remove"})
-     */
-    private $coffe_id;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Coffee::class, mappedBy="map", cascade={"persist", "remove"})
-     */
-    private $coffee;
-
->>>>>>> Stashed changes
     public function getId(): ?int
     {
         return $this->id;
@@ -142,47 +129,4 @@ class Map
 
         return $this;
     }
-<<<<<<< Updated upstream
-=======
-
-    public function getCoffeId(): ?Coffe
-    {
-        return $this->coffe_id;
-    }
-
-    public function setCoffeId(?Coffe $coffe_id): self
-    {
-        $this->coffe_id = $coffe_id;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newMap = null === $coffe_id ? null : $this;
-        if ($coffe_id->getMap() !== $newMap) {
-            $coffe_id->setMap($newMap);
-        }
-
-        return $this;
-    }
-
-    public function getCoffee(): ?Coffee
-    {
-        return $this->coffee;
-    }
-
-    public function setCoffee(?Coffee $coffee): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($coffee === null && $this->coffee !== null) {
-            $this->coffee->setMap(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($coffee !== null && $coffee->getMap() !== $this) {
-            $coffee->setMap($this);
-        }
-
-        $this->coffee = $coffee;
-
-        return $this;
-    }
->>>>>>> Stashed changes
 }

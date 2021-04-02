@@ -9,13 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Salle;
 
-use App\Entity\Transport;
-use App\Entity\Map;
-use App\Entity\EquipSalle;
-use App\Entity\Materiel;
-use App\Entity\Techn;
-use App\Entity\CuisineSalle;
-
 
    /**
    * @Route("/public/salle")

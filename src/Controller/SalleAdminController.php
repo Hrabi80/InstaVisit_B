@@ -36,8 +36,6 @@ class SalleAdminController extends AbstractController{
  public function AddNewSalle(Request $request)
  {
       $data = json_decode($request->getContent(), true);
-      
-      
       $uploadedImage=$request->files->get('main');
       $uploadedImage2=$request->files->get('cover');
       //  $uploadedImage=upload();
