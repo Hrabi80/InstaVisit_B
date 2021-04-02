@@ -87,19 +87,11 @@ class Transport
      */
     private $salle_id;
 
-<<<<<<< Updated upstream
-=======
-    /**
-     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="transport", cascade={"persist", "remove"})
-     */
-    private $coffe_id;
-
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Coffee", inversedBy="transport", cascade={"persist", "remove"})
      */
     private $coffee;
 
->>>>>>> Stashed changes
     public function getId(): ?int
     {
         return $this->id;
@@ -278,26 +270,7 @@ class Transport
 
         return $this;
     }
-<<<<<<< Updated upstream
-=======
 
-    public function getCoffeId(): ?Coffe
-    {
-        return $this->coffe_id;
-    }
-
-    public function setCoffeId(?Coffe $coffe_id): self
-    {
-        $this->coffe_id = $coffe_id;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTransport = null === $coffe_id ? null : $this;
-        if ($coffe_id->getTransport() !== $newTransport) {
-            $coffe_id->setTransport($newTransport);
-        }
-
-        return $this;
-    }
 
     public function getCoffee(): ?Coffee
     {
@@ -320,5 +293,4 @@ class Transport
 
         return $this;
     }
->>>>>>> Stashed changes
 }
