@@ -119,12 +119,12 @@ class Salle implements \JsonSerializable
     private $tech;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="salle_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Transport", mappedBy="salle_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $transport;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="salle_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Map", mappedBy="salle_id", cascade={"persist", "remove"},orphanRemoval=true)
      */
     private $map;
 

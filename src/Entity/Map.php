@@ -161,4 +161,21 @@ class Map
         return $this;
     }
 
+    public function getInstaCulure(): ?InstaCulure
+    {
+        return $this->culture_id;
+    }
+
+    public function setInstaCulure(?InstaCulure $culture_id): self
+    {
+        $this->culture_id = $culture_id;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newMap = null === $culture_id ? null : $this;
+        if ($culture_id->getMap() !== $newMap) {
+            $culture_id->setMap($newMap);
+        }
+
+        return $this;
+    }
 }

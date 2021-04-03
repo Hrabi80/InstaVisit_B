@@ -78,17 +78,44 @@ class TransportRepository extends ServiceEntityRepository
             ->where('Qr.salle_id ='.$id);
        return $qb->getQuery()->getArrayResult();
     }
+<<<<<<< HEAD
+=======
+
     /**
       * @return Transport[]
       */
 
-      public function findTransportCoffee($id){
+    public function findTaxiCulture($id){
         $qb = $this->createQueryBuilder('Qr');
 
         $qb
             ->select('Qr')
+            ->leftJoin('Qr.instaCulure','p')
+            ->where('Qr.instaCulure ='.$id);
+       return $qb->getQuery()->getArrayResult();
+    }
+
+>>>>>>> origin
+    /**
+      * @return Transport[]
+      */
+
+<<<<<<< HEAD
+      public function findTransportCoffee($id){
+=======
+    public function findTaxiResto($id){
+>>>>>>> origin
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+<<<<<<< HEAD
             ->leftJoin('Qr.coffee','p')
             ->where('Qr.coffee ='.$id);
+=======
+            ->leftJoin('Qr.instaResto','p')
+            ->where('Qr.instaResto ='.$id);
+>>>>>>> origin
        return $qb->getQuery()->getArrayResult();
     }
     /*
