@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Psr\Log\LoggerInterface;
 use App\Entity\Transport;
+use App\Entity\Map;
+use App\Entity\Techn;
 
 /**
 * @Route("/public/coffee")
@@ -178,6 +180,77 @@ public function addTransport(Request $request, $id)
     $info->setBusST($data['busST']);
     $info->setMetroST($data['metroST']);
     $info->setMetro($data['metro']);
+    $entityManager->flush();
+    return new JsonResponse(array('success' => true));
+  }
+
+
+
+  
+/**
+ * @Route("/addmap/{id}", name="addMapCoffee")
+ */
+public function addMapCoffee(Request $request,$id){
+  $em = $this->getDoctrine()->getManager();
+  $data = json_decode($request->getContent(), true);
+  $map = new Map();
+  $coffee = $em->getRepository('App:Coffee')->find($id);
+  $map->setMap($data['map']);
+  $map->setVirtualTour($data['virtual']);
+  $map->setCoffee($coffee);
+  $em->persist($map);
+  $em->flush();
+
+  return new JsonResponse(array('success' => true));
+}
+
+
+  /**
+   * @Route("/updatemap/{id}" , name="updateMapCoffee", methods="PUT")
+   * @param int $id
+   */
+  public function UpdateMapCoffee(Request $request,$id){
+    $data = json_decode($request->getContent(), true);
+    $entityManager = $this->getDoctrine()->getManager();
+    $info = $entityManager->getRepository(Map::class)->find($id);
+    $info->setMap($data['map']);
+    $info->setVirtualTour($data['virtual']);
+    $entityManager->flush();
+    return new JsonResponse(array('success' => true));
+  }
+
+    /**
+  * @Route("/addfiche/{id}", name="addFicheCoffee")
+  */
+  public function addFicheCoffee(Request $request,$id){
+    $em = $this->getDoctrine()->getManager();
+    $data = json_decode($request->getContent(), true);
+    $equip = new Techn();
+    $coffee = $em->getRepository('App:Coffee')->find($id);
+    $equip->setCoffee($coffee);
+    $equip->setToilette($data['toilette']);
+    $equip->setBar($data['bar']);
+    $equip->setParking($data['parking']);
+    $equip->setHoraire($data['horaire']);
+    $em->persist($equip);
+    $em->flush();
+
+    return new JsonResponse(array('success' => true));
+  }
+
+
+  /**
+   * @Route("/updatefiche/{id}" , name="updateFicheCoffee", methods="PUT")
+   * @param int $id
+   */
+  public function UpdateFicheCoffee(Request $request,$id){
+    $data = json_decode($request->getContent(), true);
+    $entityManager = $this->getDoctrine()->getManager();
+    $info = $entityManager->getRepository(Techn::class)->find($id);
+    $info->setToilette($data['toilette']);
+    $info->setBar($data['bar']);
+    $info->setParking($data['parking']);
+    $info->setHoraire($data['horaire']);
     $entityManager->flush();
     return new JsonResponse(array('success' => true));
   }

@@ -110,6 +110,11 @@ class Coffee  implements \JsonSerializable
      */
     private $car;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Techn::class, inversedBy="coffee", cascade={"persist", "remove"})
+     */
+    private $tech;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -310,5 +315,17 @@ class Coffee  implements \JsonSerializable
     public function jsonSerialize() {
 
         return  get_object_vars($this);
+    }
+
+    public function getTech(): ?Techn
+    {
+        return $this->tech;
+    }
+
+    public function setTech(?Techn $tech): self
+    {
+        $this->tech = $tech;
+
+        return $this;
     }
 }

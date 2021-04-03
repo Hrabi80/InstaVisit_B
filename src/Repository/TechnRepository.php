@@ -60,6 +60,23 @@ class TechnRepository extends ServiceEntityRepository
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
+
+
+
+       /**
+      * @return Techn[]
+      */
+
+      public function findFicheCoffee($id){
+        $qb = $this->createQueryBuilder('Qr');
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.coffee','p')
+            ->where('Qr.coffee ='.$id);
+
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
     // /**
     //  * @return Techn[] Returns an array of Techn objects
     //  */

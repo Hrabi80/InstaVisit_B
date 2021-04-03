@@ -47,11 +47,8 @@ class Map
      */
     private $salle_id;
 
-
-
-
     /**
-     * @ORM\OneToOne(targetEntity=Coffee::class, mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Coffee",  inversedBy="map", cascade={"persist", "remove"})
      */
     private $coffee;
 
