@@ -51,6 +51,11 @@ class Techn
      */
     private $instaCulure;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Coffee", inversedBy="tech", cascade={"persist", "remove"})
+     */
+    private $coffee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -147,6 +152,24 @@ class Techn
         $newTech = null === $instaCulure ? null : $this;
         if ($instaCulure->getTech() !== $newTech) {
             $instaCulure->setTech($newTech);
+        }
+
+        return $this;
+    }
+
+    public function getCoffee(): ?Coffee
+    {
+        return $this->coffee;
+    }
+
+    public function setCoffee(?Coffee $coffee): self
+    {
+        $this->coffee = $coffee;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTech = null === $coffee ? null : $this;
+        if ($coffee->getTech() !== $newTech) {
+            $coffee->setTech($newTech);
         }
 
         return $this;

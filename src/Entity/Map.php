@@ -48,19 +48,9 @@ class Map
     private $salle_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="map", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Coffee",  inversedBy="map", cascade={"persist", "remove"})
      */
-    private $coffe_id;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\InstaResto", inversedBy="map", cascade={"persist", "remove"})
-     */
-    private $resto_id;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\InstaCulure", inversedBy="map", cascade={"persist", "remove"})
-     */
-    private $culture_id;
+    private $coffee;
 
     public function getId(): ?int
     {
@@ -145,38 +135,25 @@ class Map
         return $this;
     }
 
-    public function getCoffeId(): ?Coffe
+
+    public function getCoffee(): ?Coffee
     {
-        return $this->coffe_id;
+        return $this->coffee;
     }
 
-    public function setCoffeId(?Coffe $coffe_id): self
+    public function setCoffee(?Coffee $coffee): self
     {
-        $this->coffe_id = $coffe_id;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newMap = null === $coffe_id ? null : $this;
-        if ($coffe_id->getMap() !== $newMap) {
-            $coffe_id->setMap($newMap);
+        // unset the owning side of the relation if necessary
+        if ($coffee === null && $this->coffee !== null) {
+            $this->coffee->setMap(null);
         }
 
-        return $this;
-    }
-
-    public function getInstaResto(): ?InstaResto
-    {
-        return $this->resto_id;
-    }
-
-    public function setInstaResto(?InstaResto $resto_id): self
-    {
-        $this->resto_id = $resto_id;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newMap = null === $resto_id ? null : $this;
-        if ($resto_id->getMap() !== $newMap) {
-            $resto_id->setMap($newMap);
+        // set the owning side of the relation if necessary
+        if ($coffee !== null && $coffee->getMap() !== $this) {
+            $coffee->setMap($this);
         }
+
+        $this->coffee = $coffee;
 
         return $this;
     }

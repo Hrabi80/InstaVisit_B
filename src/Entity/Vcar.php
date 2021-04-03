@@ -62,10 +62,13 @@ class Vcar
      */
     private $housenm;
 
+
+
     /**
-     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="car", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Coffee::class, mappedBy="car", cascade={"persist", "remove"})
      */
-    private $coffe;
+    private $coffee;
+
 
     public function getId(): ?int
     {
@@ -186,21 +189,29 @@ class Vcar
         return $this;
     }
 
-    public function getCoffe(): ?Coffe
+
+   
+
+    public function getCoffee(): ?Coffee
     {
-        return $this->coffe;
+        return $this->coffee;
     }
 
-    public function setCoffe(?Coffe $coffe): self
+    public function setCoffee(?Coffee $coffee): self
     {
-        $this->coffe = $coffe;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newCar = null === $coffe ? null : $this;
-        if ($coffe->getCar() !== $newCar) {
-            $coffe->setCar($newCar);
+        // unset the owning side of the relation if necessary
+        if ($coffee === null && $this->coffee !== null) {
+            $this->coffee->setCar(null);
         }
+
+        // set the owning side of the relation if necessary
+        if ($coffee !== null && $coffee->getCar() !== $this) {
+            $coffee->setCar($this);
+        }
+
+        $this->coffee = $coffee;
 
         return $this;
     }
+
 }

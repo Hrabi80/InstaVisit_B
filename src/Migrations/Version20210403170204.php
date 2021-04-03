@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191003204336 extends AbstractMigration
+final class Version20210403170204 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,9 @@ final class Version20191003204336 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE contact (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, message TINYTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE newsletter (id INT AUTO_INCREMENT NOT NULL, user_mail VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE map ADD coffee_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE map ADD CONSTRAINT FK_93ADAABB78CD6D6E FOREIGN KEY (coffee_id) REFERENCES coffee (id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_93ADAABB78CD6D6E ON map (coffee_id)');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +32,8 @@ final class Version20191003204336 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE contact');
-        $this->addSql('DROP TABLE newsletter');
+        $this->addSql('ALTER TABLE map DROP FOREIGN KEY FK_93ADAABB78CD6D6E');
+        $this->addSql('DROP INDEX UNIQ_93ADAABB78CD6D6E ON map');
+        $this->addSql('ALTER TABLE map DROP coffee_id');
     }
 }

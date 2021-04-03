@@ -88,19 +88,9 @@ class Transport
     private $salle_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Coffe::class, mappedBy="transport", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Coffee", inversedBy="transport", cascade={"persist", "remove"})
      */
-    private $coffe_id;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\InstaResto", inversedBy="transport",cascade={"persist", "remove"})
-     */
-    private $instaResto;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\InstaCulure", inversedBy="transport", cascade={"persist", "remove"})
-     */
-    private $instaCulure;
+    private $coffee;
 
     public function getId(): ?int
     {
@@ -281,56 +271,25 @@ class Transport
         return $this;
     }
 
-    public function getCoffeId(): ?Coffe
+
+    public function getCoffee(): ?Coffee
     {
-        return $this->coffe_id;
+        return $this->coffee;
     }
 
-    public function setCoffeId(?Coffe $coffe_id): self
+    public function setCoffee(?Coffee $coffee): self
     {
-        $this->coffe_id = $coffe_id;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTransport = null === $coffe_id ? null : $this;
-        if ($coffe_id->getTransport() !== $newTransport) {
-            $coffe_id->setTransport($newTransport);
+        // unset the owning side of the relation if necessary
+        if ($coffee === null && $this->coffee !== null) {
+            $this->coffee->setTransport(null);
         }
 
-        return $this;
-    }
-
-    public function getInstaResto(): ?InstaResto
-    {
-        return $this->instaResto;
-    }
-
-    public function setInstaResto(?InstaResto $instaResto): self
-    {
-        $this->instaResto = $instaResto;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTransport = null === $instaResto ? null : $this;
-        if ($instaResto->getTransport() !== $newTransport) {
-            $instaResto->setTransport($newTransport);
+        // set the owning side of the relation if necessary
+        if ($coffee !== null && $coffee->getTransport() !== $this) {
+            $coffee->setTransport($this);
         }
 
-        return $this;
-    }
-
-    public function getInstaCulure(): ?InstaCulure
-    {
-        return $this->instaCulure;
-    }
-
-    public function setInstaCulure(?InstaCulure $instaCulure): self
-    {
-        $this->instaCulure = $instaCulure;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTransport = null === $instaCulure ? null : $this;
-        if ($instaCulure->getTransport() !== $newTransport) {
-            $instaCulure->setTransport($newTransport);
-        }
+        $this->coffee = $coffee;
 
         return $this;
     }

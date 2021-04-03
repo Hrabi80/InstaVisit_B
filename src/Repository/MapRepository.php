@@ -119,6 +119,24 @@ class MapRepository extends ServiceEntityRepository
        return $qb->getQuery()->getArrayResult();
         //return $qb->getQuery()->execute();
     }
+
+
+/**
+      * @return Map[]
+      */
+
+      public function findMapCoffee($id){
+        $qb = $this->createQueryBuilder('Qr');
+
+        $qb
+            ->select('Qr')
+            ->leftJoin('Qr.coffee','p')
+            ->where('Qr.coffee ='.$id);
+
+       return $qb->getQuery()->getArrayResult();
+        //return $qb->getQuery()->execute();
+    }
+
     /*
     public function findByExampleField($value)
     {
