@@ -51,6 +51,15 @@ class Map
      * @ORM\OneToOne(targetEntity="App\Entity\Coffee",  inversedBy="map", cascade={"persist", "remove"})
      */
     private $coffee;
+    /**
+    * @ORM\OneToOne(targetEntity="App\Entity\InstaResto", inversedBy="map", cascade={"persist", "remove"})
+    */
+   private $resto_id;
+
+   /**
+    * @ORM\OneToOne(targetEntity="App\Entity\InstaCulure", inversedBy="map", cascade={"persist", "remove"})
+    */
+   private $culture_id;
 
     public function getId(): ?int
     {
@@ -158,21 +167,39 @@ class Map
         return $this;
     }
 
-    public function getInstaCulure(): ?InstaCulure
-    {
-        return $this->culture_id;
-    }
+    public function getInstaResto(): ?InstaResto
+   {
+       return $this->resto_id;
+   }
 
-    public function setInstaCulure(?InstaCulure $culture_id): self
-    {
-        $this->culture_id = $culture_id;
+   public function setInstaResto(?InstaResto $resto_id): self
+   {
+       $this->resto_id = $resto_id;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newMap = null === $culture_id ? null : $this;
-        if ($culture_id->getMap() !== $newMap) {
-            $culture_id->setMap($newMap);
-        }
+       // set (or unset) the owning side of the relation if necessary
+       $newMap = null === $resto_id ? null : $this;
+       if ($resto_id->getMap() !== $newMap) {
+           $resto_id->setMap($newMap);
+       }
 
-        return $this;
-    }
+       return $this;
+   }
+
+   public function getInstaCulure(): ?InstaCulure
+   {
+       return $this->culture_id;
+   }
+
+   public function setInstaCulure(?InstaCulure $culture_id): self
+   {
+       $this->culture_id = $culture_id;
+
+       // set (or unset) the owning side of the relation if necessary
+       $newMap = null === $culture_id ? null : $this;
+       if ($culture_id->getMap() !== $newMap) {
+           $culture_id->setMap($newMap);
+       }
+
+       return $this;
+   }
 }

@@ -7,11 +7,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Entity\Coffee;
 use Psr\Log\LoggerInterface;
 
 
 /**
-* @Route("/public/coffee")
+* @Route("/public/instaCoffee")
 */
 class CoffeePublicController extends AbstractController
 
@@ -23,6 +24,16 @@ class CoffeePublicController extends AbstractController
     {
         $this->logger = $logger;
     }
+
+    /**
+      * @Route("/getAll",)
+      */
+     public function getAllCoffee(){
+         $em = $this->getDoctrine()->getManager();
+         $sl = $em->getRepository('App:Coffee')->findAll();
+
+         return new JsonResponse($sl);
+     }
 
       /**
    * @Route("/getMap/{id}" , name="getMapCoffee")

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Coffe;
+
 use App\Entity\Coffee;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,11 +32,11 @@ class CoffeeController extends AbstractController
     public function getAllCoffee(){
         $em = $this->getDoctrine()->getManager();
         $sl = $em->getRepository('App:Coffee')->findAll();
-        
+
         return new JsonResponse($sl);
     }
 
-    
+
   /**
    * @Route("/{id}" , name="getOneCoffee")
    */
@@ -48,7 +48,7 @@ class CoffeeController extends AbstractController
     /**
      * @Route("/add", name="addcoffee")
      */
-  
+
     public function addNewCoffe(Request $request){
         $data = json_decode($request->getContent(), true);
         $uploadedImage=$request->files->get('main');
@@ -66,7 +66,7 @@ class CoffeeController extends AbstractController
             $image->move($this->getParameter('avatar_dir'),$imageName);
             $imagename2=md5(uniqid()).'.'.$cover->guessExtension();
             $cover->move($this->getParameter('avatar_dir'),$imagename2);
-            
+
             $nvH=new Coffee();
             $nvH->setMail($request->get('mail'));
             $nvH->setResponsable($request->get('responsable'));
@@ -81,13 +81,13 @@ class CoffeeController extends AbstractController
             $nvH->setDescription($request->get('descrip1'));
             $nvH->setDescription2($request->get('descrip2'));
             $nvH->setDescription3($request->get('descrip3'));
-       
+
              $nvH->setSurface($request->get('surface'));
              $em = $this->getDoctrine()->getManager();
              $em->persist($nvH);
              $em->flush();
-        
-            
+
+
         return new JsonResponse(array('success' => true));
     }
 
@@ -132,7 +132,7 @@ public function addTransport(Request $request, $id)
    */
   public function getStationSalle($id){
     $em = $this->getDoctrine()->getManager();
-    
+
     $bus = $em->getRepository('App:Transport')->findTransportCoffee($id);
      return new JsonResponse($bus);
 }
@@ -175,7 +175,7 @@ public function addTransport(Request $request, $id)
     $data = json_decode($request->getContent(), true);
     $entityManager = $this->getDoctrine()->getManager();
     $info = $entityManager->getRepository(Transport::class)->find($id);
-    
+
     $info->setBus($data['bus']);
     $info->setBusST($data['busST']);
     $info->setMetroST($data['metroST']);
@@ -186,7 +186,7 @@ public function addTransport(Request $request, $id)
 
 
 
-  
+
 /**
  * @Route("/addmap/{id}", name="addMapCoffee")
  */
