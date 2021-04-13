@@ -42,4 +42,21 @@ class CoffeePublicController extends AbstractController
      return new JsonResponse($map);
 }
 
+ /**
+   * @Route("/Detail/{id}")
+   */
+  public function getCoffeeById($id){
+    $em = $this->getDoctrine()->getManager();
+    $info = $em->getRepository('App:Coffee')->find($id);
+     return new JsonResponse($info);
+}
+ /**
+   * @Route("/getStation/{id}")
+   */
+  public function getStationCoffee($id){
+    $em = $this->getDoctrine()->getManager();
+    $bus = $em->getRepository('App:Transport')->findTransportCoffee($id);
+     return new JsonResponse($bus);
+}
+
 }
