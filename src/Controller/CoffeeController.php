@@ -27,7 +27,7 @@ class CoffeeController extends AbstractController
     }
 
    /**
-     * @Route("/", name="getcoffee")
+     * @Route("/all", name="getcoffee")
      */
     public function getAllCoffee(){
         $em = $this->getDoctrine()->getManager();
